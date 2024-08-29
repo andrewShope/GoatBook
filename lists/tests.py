@@ -9,3 +9,4 @@ class HomePageTest(TestCase):
 		self.assertContains(response, "<title>To-Do Lists</title>")
 		self.assertContains(response, "<html>")
 		self.assertContains(response, "</html>")
+		self.assertTemplateUsed(response, "home.html")
