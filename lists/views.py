@@ -1,12 +1,8 @@
 from django.shortcuts import redirect, render
-from lists.models import Item
+from lists.models import Item, List
 
 # Create your views here.
 def home_page(request):
-	if request.method == "POST":
-		Item.objects.create(text=request.POST["item_text"])
-		return redirect("/lists/the-only-list-in-the-world/")
-
 	return render(request, "home.html")
 
 def view_list(request):
@@ -15,3 +11,8 @@ def view_list(request):
 		"list.html", 
 		{"items": Item.objects.all()}
 	)
+
+def new_list(request):
+	nulist = List.objects.create()
+	Item.objects.create(text=request.POST["item_text"], list=nulist)
+	return redirect("/lists/the-only-list-in-the-world/")
